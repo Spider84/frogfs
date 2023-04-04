@@ -248,7 +248,8 @@ def preprocess(path, preprocessors):
 
         for preprocessor in preprocessors:
             print(f'         - running {preprocessor}')
-            command = config['preprocessors'][preprocessor]['command']
+            command = config['preprocessors'][preprocessor]['command'][0].split()
+
             if command[0].startswith('tools/'):
                 command[0] = os.path.join(script_dir, command[0][6:])
             process = subprocess.Popen(command, stdin=subprocess.PIPE,

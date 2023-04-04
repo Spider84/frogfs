@@ -1,12 +1,12 @@
 set(frogfs_DIR ${CMAKE_CURRENT_LIST_DIR}/..)
 
 if(ESP_PLATFORM)
-    set(PROJECT_BINARY_DIR ${CMAKE_CURRENT_BINARY_DIR}/build/esp-idf)
+    set(PROJECT_BINARY_DIR ${CMAKE_CURRENT_BINARY_DIR}/esp-idf)
 endif()
 
 if(NOT CMAKE_BUILD_EARLY_EXPANSION)
     find_package(Python3 REQUIRED COMPONENTS Interpreter)
-    set(Python3_VENV ${PROJECT_BINARY_DIR}/CMakeFiles/venv/bin/python)
+    set(Python3_VENV ${PYTHON_EXECUTABLE})
 
     add_custom_command(OUTPUT ${PROJECT_BINARY_DIR}/CMakeFiles/venv.stamp ${PROJECT_BINARY_DIR}/CMakeFiles/venv
         COMMAND ${Python3_EXECUTABLE} -m venv ${PROJECT_BINARY_DIR}/CMakeFiles/venv
@@ -15,7 +15,7 @@ if(NOT CMAKE_BUILD_EARLY_EXPANSION)
     )
 
     add_custom_command(OUTPUT ${PROJECT_BINARY_DIR}/CMakeFiles/venv_requirements.stamp
-        COMMAND ${PROJECT_BINARY_DIR}/CMakeFiles/venv/bin/pip install -r ${frogfs_DIR}/requirements.txt --upgrade
+        COMMAND ${PROJECT_BINARY_DIR}/CMakeFiles/venv/Scripts/pip install -r ${frogfs_DIR}/requirements.txt --upgrade
         COMMAND ${CMAKE_COMMAND} -E touch ${PROJECT_BINARY_DIR}/CMakeFiles/venv_requirements.stamp
         DEPENDS ${PROJECT_BINARY_DIR}/CMakeFiles/venv.stamp ${frogfs_DIR}/requirements.txt
         COMMENT "Installing Python requirements"
